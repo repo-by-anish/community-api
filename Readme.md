@@ -50,14 +50,13 @@ To get started with this project, follow these steps:
    git clone https://github.com/your-username/community-software-backend.git
    cd community-software-backend
 
-Install dependencies:
-```bash npm install
+```bash npm install```
 Set up environment variables (see Environment Variables).
 
 Initialize the database (see Database).
 
 Start the server:
-```bash npm start
+```bash npm start```
 
 
 The API should now be accessible at http://localhost:3000 (or another port you specify).
