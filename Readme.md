@@ -39,8 +39,8 @@ To get started with this project, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/community-software-backend.git
-   cd community-software-backend
+   git clone https://github.com/repo-by-anish/community-api.git
+   cd community-api
 
 ## Install Dependencies
 ```bash npm install```
