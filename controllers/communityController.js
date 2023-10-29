@@ -36,7 +36,7 @@ const getAllCommunities = async (req, res) => {
         };
         res.status(200).json(formattedData);
     } catch (error) {
-        res.status(404).json({ message: error.message });
+        res.status(404).json({ error: error.message });
     }
 }
 // checked
@@ -82,6 +82,7 @@ const getCommunitiesIjoined = async (req, res) => {
         if (!members.length) {
             return res.status(404).json({ message: "No communities Joined" });
         }
+        
         const communitiesId = members.map(member => member.community);
         const communities = await Community.find({ id: { $in: communitiesId } });
         const formattedData = {
@@ -122,7 +123,6 @@ const getMembers = async (req, res) => {
         if (!community) {
             return res.status(404).json({ message: "Community not found" });
         }
-        console.log(community);
         const members = await Member.find({ community: community.id });
         if (!members.length) {
             return res.status(404).json({ message: "Members not found" });
@@ -185,6 +185,7 @@ const createCommunity = async (req, res) => {
             const role = await Role.findOne({ name: "Community Admin" }).exec();
             const comId = newCommunity.id;
             const newMember = await Member.create({ id: uniqueMemberId, community: comId, user: owner, role: role.id });
+
             if (newMember) {
                 const formattedData = {
                     status: true,
@@ -201,7 +202,8 @@ const createCommunity = async (req, res) => {
                 }
                 res.status(201).json(formattedData);
             } else {
-                newCommunity.delete();
+                await newCommunity.delete();
+                await newMember.delete();
                 res.status(500).json({ message: "Failed to create community" });
             }
         }

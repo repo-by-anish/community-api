@@ -33,7 +33,8 @@ const getAllRoles = async (req, res) => {
 // Checked
 const createRole = async (req, res) => {
     const id = Snowflake.generate({ timestamp: Number(process.env.SNOWFLAKE_TIMESTAMP), shard_id: 4 });
-    const { name, scopes } = req.body;
+    const { name } = req.body;
+    const scopes = name==="Community Admin" ? ["add", "read", "update", "mdelete", "gdelete"] : name === "Community Moderator" ? ["read", "update", "mdelete", "add"]: ["read"];
     if (!id || !name || !scopes?.length) {
         return res.status(400).json({ message: "Please fill all fields" });
     }

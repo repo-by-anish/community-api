@@ -21,6 +21,11 @@ const memberSchema = new mongoose.Schema({
         required: true,
         ref: 'Role'
     }
-})
+},
+{
+    timestamps: true
+}
+
+)
 
 module.exports = mongoose.model('Member', memberSchema)
